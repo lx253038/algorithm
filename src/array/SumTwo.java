@@ -34,7 +34,7 @@ class SumTwo {
 
     public static void main(String[] args) {
         SumTwo st=new SumTwo();
-        int[] arr=st.twoSum(new int[]{1,2,3,4,5,6},9);
+        int[] arr=st.twoSum(new int[]{1,7,3,4,8,6},12);
         StringBuilder res=new StringBuilder();
         res.append("[");
         for (int i = 0; i <arr.length ; i++) {

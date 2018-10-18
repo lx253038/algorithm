@@ -13,6 +13,7 @@ public class Strrev {
         for(int i=0,j=len-1;i<len;i++,j--) {
             ch[i]=s.charAt(j);
         }
+
         return new String(ch);*/
         Character c1 = s.charAt(1);
         char c2 = s.charAt(1);

@@ -8,21 +8,22 @@ package String;
 
 public class Atoa {
     public String toLowerCase(String str) {
-        String result="";
-        for (int i = 0; i <str.length() ; i++) {
-            Character c= str.charAt(i);
-            int a=Integer.valueOf(c);
-            if(a>=65&&a<=90){
-                result+= (char) (a+32);
-            }else{
-                result+=c;
+        StringBuffer result=new StringBuffer();
+
+        for (int i = 0; i < str.length(); i++) {
+            Character c = str.charAt(i);
+            int a = Integer.valueOf(c);
+            if (a >= 65 && a <= 90) {
+                result.append((char)(a + 32));
+            } else {
+                result.append(c);
             }
         }
-        return result;
+        return result.toString();
     }
 
     public static void main(String[] args) {
-        Atoa atoa=new Atoa();
+        Atoa atoa = new Atoa();
         System.out.println(atoa.toLowerCase("HellPPPPIIIIIUUUUoooookkkkkO"));
     }
 }

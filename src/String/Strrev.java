@@ -15,8 +15,7 @@ public class Strrev {
         }
 
         return new String(ch);*/
-        Character c1 = s.charAt(1);
-        char c2 = s.charAt(1);
+
         char[] chars = s.toCharArray();
         for (int i = 0; i < chars.length / 2; i++) {
             char tmp = chars[i];

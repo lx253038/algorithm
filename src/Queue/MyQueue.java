@@ -18,6 +18,7 @@ class MyQueue {
         int param_2 = obj.pop();
         int param_3 = obj.peek();
         boolean param_4 = obj.empty();
+        System.out.println("[param_2:" + param_2 + "][param_3:" + param_3 + "][param_4:" + param_4 + "]");
     }
 
 

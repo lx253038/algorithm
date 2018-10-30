@@ -30,7 +30,7 @@ public class CalPoints {
                 sum -= stack.pop();
             } else {
                 stack.push(Integer.valueOf(ops[i]));
-                sum += Integer.valueOf(ops[i]);
+                sum += Integer.parseInt(ops[i]);
             }
 
         }

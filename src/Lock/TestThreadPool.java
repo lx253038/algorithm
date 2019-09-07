@@ -9,8 +9,19 @@ import java.util.concurrent.Future;
 /**
  * @Author LX
  * @Date 2019/9/7 12:23
- * @Description 线程池
+ * @Description 线程池（提供了一个线程队列，队列中保存着所有等待状态的线程，避免了创建与销毁额外的开销，提高了响应速度）
  * 线程池的创建与关闭  启动Runnable线程和Callable实例
+ * java.util.concurrent.Executor :负责线程使用和调度的根接口
+ *    |--**ExecutorService  ：子接口 线程池的主要接口
+ *           |--ThreadPoolExecutor :线程池的实现类
+ *           |--ScheduledExectorService  子接口 ：负责线程的调度
+ *                |--ScheduledThreadPoolExecutor :继承ThreadPoolExecutor  实现了ScheduledExecutorService接口
+ * 工具类 Executors
+ * ExecutorService   newFixedThreadPool(5):创建固定大小的线程池
+ * ExecutorService   newSingleThreadExecutor():创建单个线程池 只包含一个线程
+ * ExecutorService   newCachedThreadPool(): 缓存线程池，线程数量不固定，可根据需求自动更改线程数量
+ * ScheduledExecutorService  newScheduledThreadPool(5) :固定大小的线程池，可延时或者定时执行任务
+ *
  */
 
 public class TestThreadPool {

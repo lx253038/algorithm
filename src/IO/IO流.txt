@@ -1,0 +1,16 @@
+--字节流
+java.io.Reader   //字符输入流
+           |--BufferedReader  //带缓冲区的字符输入流（BufferedReader(Reader in) 构造器） read() 读一个字符 readLine()读一行文字。
+           |--InputStreamReader
+                    |--FileReader //FileReader是用于读取文件字符流（输入流）  new FileReader("demo.txt")  fileReader.read(arr)
+
+java.io.Writer    //字符输入流
+           |--BufferedWriter   //带缓冲区的字符输出流（BufferedWriter(Writer out) 构造器） bufferedWriter.write(str);  bufferedWriter.newLine();  bufferedWriter.flush();
+           |--OutputStreamWriter
+                    |--FileWriter  //FileWriter 是用于写入文件字符流（输出流）  new FileWriter("demo.txt")    write(char[] cbuf,int off,int len)
+
+
+
+
+
+

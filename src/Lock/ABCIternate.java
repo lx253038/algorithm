@@ -40,7 +40,7 @@ public class ABCIternate {
 }
 
 class Iternate {
-    private int num = 1;
+    private volatile int num = 1;
     private Lock lock = new ReentrantLock();
     Condition condition1 = lock.newCondition();
     Condition condition2 = lock.newCondition();
@@ -49,7 +49,7 @@ class Iternate {
     public void loopA() {
         lock.lock();
         try {
-            if (num != 1) {
+            while (num != 1) {
                 condition1.await();
             }
             System.out.print(Thread.currentThread().getName());
@@ -66,7 +66,7 @@ class Iternate {
     public void loopB() {
         lock.lock();
         try {
-            if (num != 2) {
+            while (num != 2) {
                 condition2.await();
             }
             System.out.print(Thread.currentThread().getName());
@@ -83,7 +83,7 @@ class Iternate {
     public void loopC() {
         lock.lock();
         try {
-            if (num != 3) {
+            while (num != 3) {
                 condition3.await();
             }
             System.out.print(Thread.currentThread().getName());

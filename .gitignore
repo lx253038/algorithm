@@ -7,3 +7,7 @@
 *.iml
 /bin/
 out/
+*.txt
+*.jpg
+*.png
+/.idea/

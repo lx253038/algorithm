@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
 /**
  * @Author LX
@@ -13,8 +14,21 @@ import java.io.InputStreamReader;
 public class SystemInDeno {
 
     public static void main(String[] args) throws IOException {
-        //demo1();
-        demo2();
+        demo1();
+        //demo2();
+        //demo3();
+    }
+
+    private static void demo3() {
+        Scanner s = new Scanner(System.in);
+        while (true) {
+            String s1 = s.nextLine();
+            if ("over".equals(s1)) {
+                break;
+            }
+            System.out.println(s1.toUpperCase());
+        }
+
     }
 
     private static void demo2() throws IOException {

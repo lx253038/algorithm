@@ -26,7 +26,8 @@ import java.util.concurrent.Future;
 
 public class TestThreadPool {
     public static void main(String[] args) throws Exception {
-        ExecutorService executorService = Executors.newFixedThreadPool(5);
+
+        ExecutorService executorService = Executors.newScheduledThreadPool(5);
         ThreadDemo demo = new ThreadDemo();
  /*        for (int i = 0; i <10 ; i++) {
             executorService.submit(demo);

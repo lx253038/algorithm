@@ -44,5 +44,6 @@
     <inspection_tool class="NRCollectionInitShouldAssignCapacity" enabled="false" level="MAJOR" enabled_by_default="false" />
     <inspection_tool class="NRCommentsMustBeJavadocFormat" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="NRRemoveCommentedCode" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="NRThreadPoolCreation" enabled="false" level="BLOCKER" enabled_by_default="false" />
   </profile>
 </component>

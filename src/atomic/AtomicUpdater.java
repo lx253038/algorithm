@@ -7,7 +7,7 @@ import lombok.Data;
 /**
  * @Author LX
  * @Date 2020/4/16 20:03
- * @Description
+ * @Description AtomicIntegerFieldUpdater将普通变量升级为原子变量
  */
 public class AtomicUpdater implements Runnable {
 

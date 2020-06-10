@@ -12,7 +12,7 @@
 ### 相关知识点
 #### 自定义注解使用AOP思想实现系统日志的记录
 - 自定义注解
-```
+```java
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SysLog {
@@ -27,7 +27,7 @@ public @interface SysLog {
   > - 返回通知（AfterReturning）： 在方法返回结果之后执行
 
 - 定义一个普通的切面   
-```
+```java
 /**
  * 切面表达式：
  * execution 代表所要执行的表达式主体
@@ -36,13 +36,15 @@ public @interface SysLog {
  * 第三处 ..* 代表该包以及子包的所有类
  * 第四处 *(..) *代表类中的所有方法，(..)表示方法中的任何参数
 */
-@Around("execution(* com.mybatis.boot.service.impl..*.*(..))")
-public Object recordTimeLog(ProceedingJoinPoint joinPoint) throws Throwable {
-    // TODO: 切面逻辑处理代码
+class Aspect{
+    @Around("execution(* com.mybatis.boot.service.impl..*.*(..))")
+    public Object recordTimeLog(ProceedingJoinPoint joinPoint) throws Throwable {
+        // TODO: 切面逻辑处理代码
+    }
 }
 ```
 - 定义一个注解类型的切面
-```
+```java
 @Aspect 
 public class SysLogAspect {
     // 注解形式切点
@@ -63,27 +65,31 @@ public class SysLogAspect {
 #### CORS跨域支持
 - 在Controller中添加@CrossOrigin注解允许单个请求跨域
 - 继承WebMvcConfigurationSupport（实现WebMvcConfigurer接口）重写addCorsMappings方法
-```
-@Override
-public void addCorsMappings(CorsRegistry registry) {
-    CorsRegistration corsRegistration = registry.addMapping("/**");
-    corsRegistration.allowedOrigins("*")
-            .allowedMethods("*").allowedHeaders("*")
-            .allowCredentials(true).maxAge(3600);
+```java
+class Config{
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        CorsRegistration corsRegistration = registry.addMapping("/**");
+        corsRegistration.allowedOrigins("*")
+                .allowedMethods("*").allowedHeaders("*")
+                .allowCredentials(true).maxAge(3600);
+    }
 }
 ```
 - 定义一个CorsFilter
-```
-@Bean
-public CorsFilter corsFilter() {
-    CorsConfiguration corsConfiguration = new CorsConfiguration();
-    corsConfiguration.addAllowedOrigin("*");
-    corsConfiguration.addAllowedHeader("*");
-    corsConfiguration.addAllowedMethod("*");
-    corsConfiguration.setAllowCredentials(true);
-    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", corsConfiguration);
-    return new CorsFilter(source);
+```java
+class Config{
+    @Bean
+    public CorsFilter corsFilter() {
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.addAllowedOrigin("*");
+        corsConfiguration.addAllowedHeader("*");
+        corsConfiguration.addAllowedMethod("*");
+        corsConfiguration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", corsConfiguration);
+        return new CorsFilter(source);
+    }
 }
 ```
 #### @Transactional 注解详解
@@ -106,7 +112,7 @@ public CorsFilter corsFilter() {
 
 #### Mybatis知识点
 - springboot启动类添加@MapperScan()注解，扫描Mapper接口
-```
+```java
 @MapperScan("com.mybatis.boot.**.mapper")
 @SpringBootApplication
 public class BootApplication {
@@ -117,7 +123,7 @@ public class BootApplication {
 }
 ```
 - application.yml配置文件添加mybatis相关配置  
-```
+```yaml
 mybatis-plus:
   mapper-locations: classpath:mapper/**/*.xml
   type-aliases-package: com.mybatis.boot.model
@@ -125,7 +131,7 @@ mybatis-plus:
     cache-enabled: true
 ```
 - 编写Mapper接口定义相关方法
-```
+```java
 public interface UserMapper {
     int insert(User record);
     User selectByPrimaryKey(Integer id);
@@ -134,7 +140,7 @@ public interface UserMapper {
 }
 ```
 - 根据接口方法编写Mapper.xml文件以及相关方法的SQL语句
-```
+```xml
 <mapper namespace="com.mybatis.boot.mapper.UserMapper">
     <resultMap id="BaseResultMap" type="com.mybatis.boot.model.User">
         <id column="id" jdbcType="INTEGER" property="id"/>

@@ -1,4 +1,4 @@
-package Thread;
+package semaphore;
 
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @author LX
  * @date 2019-7-3 20:21
- * Semaphore信号量 用来控制同时访问某个特定资源的操作数量，或者同时执行某个指定操作的数量
+ * Semaphore信号量(许可证) 用来控制同时访问某个特定资源的操作数量，或者同时执行某个指定操作的数量
  * 例：10辆车看成10个线程，抢占 3个车位（即Semaphore设置数量等于3）;
  * 调用acquire()方法抢占资源，未抢到的则等待，release()释放资源
  */

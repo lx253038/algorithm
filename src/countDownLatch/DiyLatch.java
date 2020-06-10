@@ -1,4 +1,4 @@
-package Trie;
+package countDownLatch;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.AbstractQueuedSynchronizer;
@@ -6,12 +6,24 @@ import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 /**
  * @Author LX
  * @Date 2020/4/23 21:09
- * @Description
+ * @Description 使用AQS实现自定义门栓
+ * 1.定义一个私有的Sync内部类继承AbstractQueuedSynchronizer
+ * 2.public Sync(int count)提供一个传入数量的有参构造器，通过调用AQS的setState(count);设置AQS中states数量
+ * 3.重写AQS这四种方法（根据需要，选择是独占类型还是共享类型的） boolean tryAcquire(int arg)/int tryAcquireShared(int arg)/ boolean tryReleaseShared(int arg)/boolean tryRelease(int arg)
+ * 3.工具类定义一个Sync对象，DiyLatch(int count)，外部传入count实例化Sync对象
+ * 4.工具类中写自己的逻辑方法await()/latch/release()
+ * 调用方法                                  验证方法                     对应返回值                         特点
+ * sync.acquire(1);                         tryAcquire(int arg)          true/false(阻塞)                  独占 可参考ReentrantLock.lock()
+ * sync.acquireInterruptibly(1);            tryAcquire(int arg)          true/false(阻塞)                  可响应中断（其他同上）
+ * sync.acquireShared(1);                   tryAcquireShared(arg)        int类型（小于0阻塞）               共享 可参考 CountDownLatch.await()
+ * sync.acquireSharedInterruptibly(1);      tryAcquireShared(arg)        int类型（小于0阻塞)                可响应中断（其他同上）
+ * sync.release(1);                         tryRelease(arg)              true(释放锁，唤醒其他线程)/false    独占可参考ReentrantLock.unlock()
+ * sync.releaseShared(1);                   tryReleaseShared(arg)        true(唤醒所有阻塞的线程)/false      共享 可参考 CountDownLatch.countDown()
  */
 public class DiyLatch {
 
     public static void main(String[] args) throws InterruptedException {
-        test1();  //多等一
+        //test1();  //多等一
         test2();  //一等多
     }
 
@@ -34,22 +46,22 @@ public class DiyLatch {
                 }
             }, String.valueOf(i)).start();
         }
-        Thread thread = new Thread(() -> {
-            try {
-                System.out.println(Thread.currentThread().getName() + ":阻塞");
+//        Thread thread = new Thread(() -> {
+//            try {
+//                System.out.println(Thread.currentThread().getName() + ":阻塞");
+//
+//                diyLatch.await();
+//                System.out.println(Thread.currentThread().getName() + ":通行");
+//
+//            } catch (InterruptedException e) {
+//                System.out.println(Thread.currentThread().getName() + ":被中断了");
+//                e.printStackTrace();
+//            }
+//        }, "AAA");
+        // thread.start();
+//        TimeUnit.MILLISECONDS.sleep(2000);
 
-                diyLatch.await();
-                System.out.println(Thread.currentThread().getName() + ":通行");
-
-            } catch (InterruptedException e) {
-                System.out.println(Thread.currentThread().getName() + ":被中断了");
-                e.printStackTrace();
-            }
-        }, "AAA");
-        thread.start();
-        TimeUnit.MILLISECONDS.sleep(2000);
-
-        thread.interrupt();
+        //thread.interrupt();
 
         TimeUnit.MILLISECONDS.sleep(5000);
         diyLatch.latch(10);
@@ -111,6 +123,7 @@ public class DiyLatch {
             setState(count);
         }
 
+
         public int getCount() {
             return getState();
         }
@@ -125,6 +138,10 @@ public class DiyLatch {
             return getState() == 0 ? 1 : -1;
         }
 
+        @Override
+        protected boolean tryRelease(int arg) {
+            return super.tryRelease(arg);
+        }
         @Override
         protected boolean tryReleaseShared(int arg) {
             while (true) {

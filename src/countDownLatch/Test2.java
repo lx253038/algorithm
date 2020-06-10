@@ -1,3 +1,5 @@
+package countDownLatch;
+
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -27,7 +29,7 @@ public class Test2 {
                     if (i % j == 0) {
                         sum1++;
                         try {
-                            TimeUnit.MICROSECONDS.sleep(120);
+                            TimeUnit.MICROSECONDS.sleep(20);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }

@@ -1,6 +1,9 @@
 package 反射;
 
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+
 /**
  * @Author LX
  * @Date 2020/5/16 14:42
@@ -20,6 +23,24 @@ public class Demo1 {
         Student student = (Student) c.newInstance();
         student.tell();
         System.out.println(student);
+        System.out.println("========通过反射获取私有属性和设置私有属性值==========");
+        Field[] fields = c.getDeclaredFields();
+        for (Field field : fields) {
+            field.setAccessible(true);
+            System.out.println(field.get(student));
+        }
+        System.out.println("====更改name属性值====");
+        Field field = c.getDeclaredField("name");
+        field.setAccessible(true);
+        field.set(student, "李四");
+        System.out.println(field.get(student));
+
+        Method[] declaredMethods = c.getDeclaredMethods();
+        for (Method method : declaredMethods) {
+            method.setAccessible(true);
+            method.invoke(student);
+        }
+
     }
 
 

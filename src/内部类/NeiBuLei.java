@@ -37,14 +37,20 @@ public class NeiBuLei {
     }
 
     public static void test1() {
-
+        class D {
+            public D() {
+                //局部静态内部类可以访问外部类的所有变量和方法
+                System.out.println(id);
+                test1();
+            }
+        }
     }
 
     public void test() {
         //局部内部类
         class C {
             public C() {
-                //成员内部类可以访问外部类的所有变量和方法
+                //局部内部类可以访问外部类的所有变量和方法
                 System.out.println(name);
                 System.out.println(id);
                 test();

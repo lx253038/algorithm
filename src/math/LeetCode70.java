@@ -17,7 +17,7 @@ package math;
 public class LeetCode70 {
 
     public static void main(String[] args) {
-        System.out.println(new LeetCode70().climbStairs(3));
+        System.out.println(new LeetCode70().climbStairs(4));
     }
 
     public int climbStairs(int n) {

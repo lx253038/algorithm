@@ -5,11 +5,11 @@ package array;
  * @Date 2020/7/23 21:51
  * @Description
  */
-public class Leetcode11 {
+public class LeetcodeOffer11 {
 
     public static void main(String[] args) {
-        System.out.println(new Leetcode11().minArray(new int[]{3, 4, 5, 1, 2}));
-        System.out.println(new Leetcode11().minArray1(new int[]{3, 4, 5, 1, 2}));
+        System.out.println(new LeetcodeOffer11().minArray(new int[]{3, 4, 5, 1, 2}));
+        System.out.println(new LeetcodeOffer11().minArray1(new int[]{3, 4, 5, 1, 2}));
     }
 
     //从头到尾遍历

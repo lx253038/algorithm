@@ -24,7 +24,8 @@ public class DiyLatch {
 
     public static void main(String[] args) throws InterruptedException {
         //test1();  //多等一
-        test2();  //一等多
+        // test2();  //一等多
+        test3();
     }
 
     /**
@@ -93,11 +94,41 @@ public class DiyLatch {
         System.out.println("所有同学已离开，可以关闭教室门");
     }
 
+    public static void test3() throws InterruptedException {
+        DiyLatch diyLatch = new DiyLatch(0);
+
+        for (int i = 0; i < 5; i++) {
+            new Thread(() -> {
+                diyLatch.acquire();
+                System.out.println(Thread.currentThread().getName() + ":正在打饭中");
+                try {
+                    TimeUnit.SECONDS.sleep(3);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println(Thread.currentThread().getName() + ":打饭完成");
+                diyLatch.release();
+                System.out.println(diyLatch.getCount());
+            }, String.valueOf(i)).start();
+        }
+
+    }
+
+
     private final Sync sync;
 
     public DiyLatch() {
         sync = null;
     }
+
+    public void acquire() {
+        sync.acquire(1);
+    }
+
+    public void release() {
+        sync.release(1);
+    }
+
 
     public DiyLatch(int count) {
         this.sync = new Sync(count);
@@ -130,20 +161,26 @@ public class DiyLatch {
 
         @Override
         protected boolean tryAcquire(int arg) {
-            return getState() == 0;
+            //独占方式。尝试获取资源，成功则返回true，失败则返回false。
+            return compareAndSetState(0, 1);
+        }
+
+
+        @Override
+        protected boolean tryRelease(int arg) {
+            //独占方式。尝试释放资源，成功则返回true，失败则返回false。
+            return compareAndSetState(1, 0);
         }
 
         @Override
         protected int tryAcquireShared(int arg) {
+            //共享方式。尝试获取资源。负数表示失败；0表示成功，但没有剩余可用资源；正数表示成功，且有剩余资源。
             return getState() == 0 ? 1 : -1;
         }
 
         @Override
-        protected boolean tryRelease(int arg) {
-            return super.tryRelease(arg);
-        }
-        @Override
         protected boolean tryReleaseShared(int arg) {
+            //共享方式。尝试释放资源，成功则返回true，失败则返回false。
             while (true) {
                 int num = getState();
                 if (num == 0) {

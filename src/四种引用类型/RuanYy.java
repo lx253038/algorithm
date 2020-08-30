@@ -1,5 +1,6 @@
 package 四种引用类型;
 
+import java.lang.ref.ReferenceQueue;
 import java.lang.ref.SoftReference;
 
 /**
@@ -39,17 +40,19 @@ public class RuanYy {
 
     //内存不足时
     private static void softRefMemoryNotEnough() {
-        Object object = new byte[1024 * 1024 * 3];
+        Object object = new byte[1024 * 1024 * 2];
+        ReferenceQueue referenceQueue = new ReferenceQueue();
         //ob1软引用于object
-        SoftReference<Object> ob1 = new SoftReference<>(object);
+        SoftReference<Object> ob1 = new SoftReference<>(object, referenceQueue);
         System.out.println(object);
         System.out.println(ob1.get());
-
         object = null;
         //在创建对象超出JVM内存，先尝试去回收软引用再创建对象，如果仍然内存不足才会报错
-        byte[] bytes = new byte[1024 * 1024 * 2];
+        byte[] bytes = new byte[1024 * 1024 * 1];
         System.out.println(object);
         //软引用会被回收
         System.out.println(ob1.get());
+        System.out.println(referenceQueue.poll());
+
     }
 }

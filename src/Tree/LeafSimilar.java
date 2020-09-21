@@ -34,6 +34,8 @@ public class LeafSimilar {
                     return false;
                 }
             }
+        } else {
+            return false;
         }
         return true;
     }
@@ -45,31 +47,15 @@ public class LeafSimilar {
         if (root.left == null && root.right == null) {
             list.add(root.val);
         }
-        if (root.left != null) {
             searchLeaf(root.left, list);
-        }
-        if (root.right != null) {
             searchLeaf(root.right, list);
-        }
-
     }
 
     public static void main(String[] args) {
-        TreeNode root = new TreeNode(3);
-        root.left = new TreeNode(9);
-        root.right = new TreeNode(20);
-        root.right.left = new TreeNode(15);
-        root.right.right = new TreeNode(7);
 
-
-        TreeNode root1 = new TreeNode(10);
-        root1.left = new TreeNode(9);
-        root1.right = new TreeNode(100);
-        root1.right.left = new TreeNode(15);
-        root1.right.right = new TreeNode(8);
 
         LeafSimilar leafSimilar = new LeafSimilar();
-        boolean leafsimilar = leafSimilar.leafsimilar(root, root1);
+        boolean leafsimilar = leafSimilar.leafsimilar(Array2Tree.listToTree("[3,5,1,6,2,9,8,null,null,7,4]"), Array2Tree.listToTree("[3,5,1,6,7,4,2,null,null,null,null,null,null,9,11,null,null,8,10]"));
         System.out.println(leafsimilar);
 
     }

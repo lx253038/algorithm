@@ -16,28 +16,25 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-public class AverageOfLevel {
+public class LeetCode637 {
     public List<Double> averageOfLevels(TreeNode root) {
         Queue<TreeNode> queue = new LinkedList<>();
         List<Double> list = new ArrayList();
         queue.add(root);
-
         while (!queue.isEmpty()) {
-            long sum = 0;
+            double sum = 0;
             int size = queue.size();
             for (int i = 0; i < size; i++) {
-                TreeNode cur = queue.remove();
-                sum += cur.val;
-
-                if (cur.left != null) {
-                    queue.add(cur.left);
+                TreeNode node = queue.poll();
+                sum += node.val;
+                if (node.left != null) {
+                    queue.add(node.left);
                 }
-                if (cur.right != null) {
-                    queue.add(cur.right);
+                if (node.right != null) {
+                    queue.add(node.right);
                 }
             }
-            list.add((double) sum / size);
-
+            list.add(sum / size);
         }
 
         return list;
@@ -49,8 +46,8 @@ public class AverageOfLevel {
         root.right = new TreeNode(20);
         root.right.left = new TreeNode(15);
         root.right.right = new TreeNode(7);
-        AverageOfLevel averageOfLevel = new AverageOfLevel();
-        List<Double> list = averageOfLevel.averageOfLevels(root);
+        LeetCode637 leetCode637 = new LeetCode637();
+        List<Double> list = leetCode637.averageOfLevels(root);
         System.out.println(list.toString());
 
     }

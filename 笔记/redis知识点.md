@@ -41,3 +41,14 @@
 > * sentinel monitor servername  127.0.0.1 6379  1
 > * 启动哨兵监控 windows: redis-server.exe sentinel.conf --sentinel  linux: redis-sentinel  sentinel.conf
 
+### Cluster集群模式
+> * cluster-enabled  yes   开启cluster集群节点模式
+> * cluster-node-timeout 15000  故障转移时间
+> * cluster-config-file  nodes.conf  集群节点相关的配置信息
+> * cluster-require-full-coverage  yes  集群中所有节点正常才提供服务，否则不提供服务
+> * cluster meet ip port   设置节点间的相互通信
+> * cluster addslots  0 1 2 3 4 5 6 7  为每个几点分配槽
+> * cluster replicate node-id   设置主从关系
+> * cluster nodes / cluster info  查看节点信息
+> * cluster slots  查看槽分配信息
+

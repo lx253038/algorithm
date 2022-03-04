@@ -12,6 +12,7 @@ import java.lang.reflect.Method;
 public class Demo1 {
 
 
+
     public static void main(String[] args) throws Exception {
         //3种方式获取到Class对象
         //Class c = Class.forName("fanshe.Student");

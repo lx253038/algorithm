@@ -30,6 +30,7 @@ public class Test9 {
 
         new Thread(runnable, "AAA").start();
         new Thread(runnable, "BBB").start();
+        System.out.println("11111111111");
     }
 
 
